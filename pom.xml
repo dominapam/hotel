@@ -5,8 +5,8 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.challenge.hotel</groupId>
-	<artifactId>hotel-backend-demo</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>hotel-backend</artifactId>
+	<version>1.0</version>
 	<packaging>jar</packaging>
 
 	<name>hotel-backend</name>
