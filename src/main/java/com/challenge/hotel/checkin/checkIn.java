@@ -1,4 +1,4 @@
-package com.challenge.hotel.model;
+package com.challenge.hotel.checkin;
 
 import java.time.LocalDateTime;
 
@@ -8,13 +8,23 @@ import javax.validation.constraints.NotBlank;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.challenge.hotel.auditModel.auditModel;
+import com.challenge.hotel.hospede.hospede;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="checkins", schema="hotel")
 public class checkIn extends auditModel {
+
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(generator = "checkin_generator")
+	@SequenceGenerator(
+            name = "checkin_generator",
+            sequenceName = "checkin_sequence",
+            initialValue = 10000
+    )
 	private Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -23,11 +33,11 @@ public class checkIn extends auditModel {
 	@JsonIgnore
 	private hospede hospede;
 
-	@NotBlank
+	//@NotBlank
 	@Column
 	private LocalDateTime dataEntrada;
 
-	@NotBlank
+	//@NotBlank
 	@Column
 	private LocalDateTime dataSaida;
 

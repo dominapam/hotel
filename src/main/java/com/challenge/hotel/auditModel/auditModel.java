@@ -1,4 +1,4 @@
-package com.challenge.hotel.model;
+package com.challenge.hotel.auditModel;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.CreatedDate;
@@ -15,6 +15,9 @@ import java.util.Date;
 		allowGetters = true
 		)
 public abstract class auditModel implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_at", nullable = false, updatable = false)
 	@CreatedDate

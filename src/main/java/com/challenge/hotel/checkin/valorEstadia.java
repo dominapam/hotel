@@ -1,7 +1,7 @@
-package com.challenge.hotel.model;
+package com.challenge.hotel.checkin;
 
-import java.time.DayOfWeek;
-import java.time.LocalDateTime;
+//import java.time.DayOfWeek;
+//import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class valorEstadia {
@@ -12,7 +12,7 @@ public class valorEstadia {
 	final float diariaGaragemFimdeSemana = 20;
 	final LocalTime diariaExtraApos = LocalTime.of(16, 30);
 
-	
+/*	
 	public float calculaValorEstadia(checkIn checkIn) {
 		LocalDateTime saida = checkIn.getDataSaida();
 		LocalDateTime entrada = checkIn.getDataEntrada();
@@ -42,6 +42,6 @@ public class valorEstadia {
 	public boolean isFimdeSemana(LocalDateTime dia) {
 		return (dia.getDayOfWeek().equals(DayOfWeek.SUNDAY) || dia.getDayOfWeek().equals(DayOfWeek.SATURDAY));
 	}
-
+*/
 
 }

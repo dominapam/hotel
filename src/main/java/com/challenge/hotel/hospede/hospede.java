@@ -1,15 +1,19 @@
-package com.challenge.hotel.model;
+package com.challenge.hotel.hospede;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.challenge.hotel.auditModel.auditModel;
+
 @Entity
 @Table(name="hospedes", schema="hotel")
 public class hospede extends auditModel {
 
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	private Long documento;
+	private Long id; //documento
 
 	@NotBlank
 	@Size(min = 2, max = 100)
@@ -35,10 +39,10 @@ public class hospede extends auditModel {
 		this.nome = nome;
 	}
 	public Long getDocumento() {
-		return documento;
+		return id;
 	}
 	public void setDocumento(Long documento) {
-		this.documento = documento;
+		this.id = documento;
 	}
 	public int getTelefone() {
 		return telefone;
