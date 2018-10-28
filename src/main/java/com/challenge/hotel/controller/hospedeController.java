@@ -2,6 +2,7 @@ package com.challenge.hotel.controller;
 
 import com.challenge.hotel.model.hospede;
 import com.challenge.hotel.exception.ResourceNotFoundException;
+import com.challenge.hotel.repository.checkInRepository;
 import com.challenge.hotel.repository.hospedeRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 @RestController
@@ -21,7 +27,7 @@ public class hospedeController {
 	public hospede getHospede(@PathVariable Long hospedeId) {
 		return hospedeRepository.findById(hospedeId).orElseThrow(() -> new ResourceNotFoundException("Hospede não encontrado com id " + hospedeId));
 	}
-	
+
 	@GetMapping("/hospedes")
 	public Page<hospede> getHospedes(Pageable pageable) {
 		return hospedeRepository.findAll(pageable);
@@ -42,7 +48,7 @@ public class hospedeController {
 					hospede.setTelefone(hospedeRequest.getTelefone());
 					return hospedeRepository.save(hospede);
 				}).orElseThrow(() -> new ResourceNotFoundException("Hospede não encontrado com id " + hospedeId));	
-		}
+	}
 
 	@DeleteMapping("/hospedes/{hospedeId}")
 	public ResponseEntity<?> deleteHospede(@PathVariable Long hospedeId) {
@@ -52,7 +58,7 @@ public class hospedeController {
 					return ResponseEntity.ok().build();
 				}).orElseThrow(() -> new ResourceNotFoundException("Hospede não encontrado com id " + hospedeId));
 	}
-	
+
 }
 
 

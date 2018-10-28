@@ -2,16 +2,51 @@ package com.challenge.hotel.model;
 
 import java.time.LocalDateTime;
 
-public class checkIn {
-	private int id;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
+@Table(name="checkins", schema="hotel")
+public class checkIn extends auditModel {
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long id;
+
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "hospede_id", nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonIgnore
 	private hospede hospede;
+
+	@NotBlank
+	@Column
 	private LocalDateTime dataEntrada;
+
+	@NotBlank
+	@Column
 	private LocalDateTime dataSaida;
+
+	@Column
 	private boolean adicionalVeiculo;
-	public int getId() {
+
+	@Column
+	private float valorEstadia;
+
+	public float getValorEstadia() {
+		return valorEstadia;
+	}
+	public void setValorEstadia(float valorEstadia) {
+		this.valorEstadia = valorEstadia;
+	}
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public hospede getHospede() {
@@ -38,5 +73,5 @@ public class checkIn {
 	public void setAdicionalVeiculo(boolean adicionalVeiculo) {
 		this.adicionalVeiculo = adicionalVeiculo;
 	}	
-	
+
 }
