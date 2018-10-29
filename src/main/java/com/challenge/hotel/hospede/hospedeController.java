@@ -6,6 +6,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 @RestController
@@ -46,6 +48,24 @@ public class hospedeController {
 		return hospedeService.getHospedes(pageable);
 	}
 	
+	// List guests by name
+	@GetMapping("/hospedes/nome/{hospedeNome}")
+	public List<hospede> getHospedesByNome(@PathVariable String hospedeNome) {
+		return hospedeService.getHospedesByNome(hospedeNome);
+	}
+	
+	// List guests by telefone
+	@GetMapping("/hospedes/telefone/{hospedeTelefone}")
+	public List<hospede> getHospedesByTelefone(@PathVariable Long hospedeTelefone) {
+		return hospedeService.getHospedesByTelefone(hospedeTelefone);
+	}
+	
+	// List guests in the hotel
+/*	@GetMapping("/hospedes/nohotel")
+	public List<hospede> getHospedesNoHotel() {
+		return hospedeService.getHospedesNoHotel();
+	}
+	*/
 
 }
 

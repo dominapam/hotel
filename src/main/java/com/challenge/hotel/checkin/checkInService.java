@@ -1,6 +1,7 @@
 package com.challenge.hotel.checkin;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.challenge.hotel.exception.ResourceNotFoundException;
+import com.challenge.hotel.hospede.hospede;
 import com.challenge.hotel.hospede.hospedeRepository;
 
 @Service
@@ -32,46 +34,62 @@ public class checkInService {
 		LocalDateTime entrada = checkIn.getDataEntrada();
 		float valor =  0;
 
-		LocalDateTime i = entrada;
-		while (i.isBefore(saida)) {
-
-			if (isFimdeSemana(entrada)) {
-				valor =+ diariaFimdeSemana;
+		LocalDate s = saida.toLocalDate();
+		LocalDate e = entrada.toLocalDate();
+		if (e.equals(s)) {
+			if (isFimdeSemana(e)) {
+				valor += diariaFimdeSemana;
+				if (checkIn.isAdicionalVeiculo()) {valor += diariaGaragemFimdeSemana;}
 			} else {
-				valor =+ diariaSemana;
+				valor += diariaSemana;
+				if (checkIn.isAdicionalVeiculo()) {valor += diariaGaragemSemana;}
 			}
-
-			if (saida.toLocalTime().isAfter(diariaExtraApos)) {
-				if (isFimdeSemana(entrada)) {
-					valor =+ diariaFimdeSemana;
+		} else {
+			while (e.isBefore(s)) {
+				if (isFimdeSemana(e)) {
+					valor += diariaFimdeSemana;
+					if (checkIn.isAdicionalVeiculo()) {valor += diariaGaragemFimdeSemana;}
 				} else {
-					valor =+ diariaSemana;
+					valor += diariaSemana;
+					if (checkIn.isAdicionalVeiculo()) {valor += diariaGaragemSemana;}
+				}
+				e = e.plusDays(1);
+			}
+			if (saida.toLocalTime().isAfter(diariaExtraApos)) {
+				if (isFimdeSemana(e)) {
+					valor += diariaFimdeSemana;
+					if (checkIn.isAdicionalVeiculo()) {valor += diariaGaragemFimdeSemana;}
+				} else {
+					valor += diariaSemana;
+					if (checkIn.isAdicionalVeiculo()) {valor += diariaGaragemSemana;}
 				}
 			}
-			i.plusDays(1);		
 		}
 		return valor;
 	}
 
-	public boolean isFimdeSemana(LocalDateTime dia) {
+	public boolean isFimdeSemana(LocalDate dia) {
 		return (dia.getDayOfWeek().equals(DayOfWeek.SUNDAY) || dia.getDayOfWeek().equals(DayOfWeek.SATURDAY));
 	}
-			
+
 	public checkIn addCheckIn(Long hospedeId, checkIn checkIn) {
 		return hospedeRepository.findById(hospedeId)
 				.map(hospede -> {
-					checkIn.setHospede(hospede);
-					checkIn.setValorEstadia(calculaValorEstadia(checkIn));
-					getCheckInsByHospedeId(hospedeId).forEach((checkInTemp) -> {
-						hospede.setGastoTotal(hospede.getGastoTotal() + checkInTemp.getValorEstadia());
-					});
+					float valorEstadia = calculaValorEstadia(checkIn);
+					hospede.setGastoTotal(hospede.getGastoTotal() + valorEstadia);
 					hospedeRepository.save(hospede);
+					checkIn.setHospede(hospede);
+					checkIn.setValorEstadia(valorEstadia);				
 					return checkInRepository.save(checkIn);
 				}).orElseThrow(() -> new ResourceNotFoundException("Hospede não encontrado com id " + hospedeId));
 	}
 
 	public List<checkIn> getCheckInsByHospedeId(Long hospedeId) {
 		return checkInRepository.findByHospedeId(hospedeId);
+	}
+	
+	public List<checkIn> getCheckIns() {
+		return checkInRepository.findAll();
 	}
 
 	public checkIn updateCheckIn(Long hospedeId, Long checkInId, checkIn checkInRequest) {
@@ -93,31 +111,21 @@ public class checkInService {
 		if(!hospedeRepository.existsById(hospedeId)) {
 			throw new ResourceNotFoundException("Hospede não encontrado com id " + hospedeId);
 		}
-
+		
+		hospede hospede = hospedeRepository.findById(hospedeId).get();
+		hospede.setGastoTotal(hospede.getGastoTotal() - getCheckIn(checkInId).getValorEstadia());
+		hospedeRepository.save(hospede);
+		
 		return checkInRepository.findById(checkInId)
-				.map(checkIn -> {
+				.map(checkIn -> {				
 					checkInRepository.delete(checkIn);
 					return ResponseEntity.ok().build();
 				}).orElseThrow(() -> new ResourceNotFoundException("Check-in não encontrado com id " + checkInId));
 
 	}
-	
+
+
 	/*
-	public List<hospede> getHospedesNoHotel() {
-
-		LocalDateTime agora = LocalDateTime.now();
-		List<hospede> hospedesNoHotel = new ArrayList<hospede>();
-
-		checkInRepository.findAll().forEach((checkIn) -> {
-			if(agora.isBefore(checkIn.getDataSaida()) && agora.isAfter(checkIn.getDataEntrada())) {
-				hospedesNoHotel.add(checkIn.getHospede());
-			}
-
-		});
-
-		return hospedesNoHotel;
-	}
-
 	public List<hospede> getHospedesQueSairamDoHotel() {
 
 		LocalDateTime agora = LocalDateTime.now();
@@ -132,10 +140,10 @@ public class checkInService {
 
 		return hospedesNoHotel;
 	}
-	*/
-	
+	 */
+
 	public checkIn getCheckIn(Long checkinId) {
 		return checkInRepository.findById(checkinId).orElseThrow(() -> new ResourceNotFoundException("Check-in não encontrado com id " + checkinId));
 	}
-	
+
 }

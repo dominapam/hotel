@@ -30,7 +30,7 @@ public class checkIn extends auditModel {
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "hospede_id", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JsonIgnore
+	//@JsonIgnore
 	private hospede hospede;
 
 	//@NotBlank

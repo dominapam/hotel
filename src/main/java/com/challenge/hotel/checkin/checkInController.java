@@ -1,14 +1,14 @@
 package com.challenge.hotel.checkin;
 
-//import com.challenge.hotel.hospede.hospedeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.challenge.hotel.hospede.hospede;
+
 import javax.validation.Valid;
 import java.util.List;
-//import java.time.LocalDateTime;
-//import java.util.ArrayList;
 
 
 @RestController
@@ -54,23 +54,8 @@ public class checkInController {
 		return checkInService.getCheckInsByHospedeId(hospedeId);
 	}
 	
+	
 	/*
-	@GetMapping("/hospedes/NoHotel")
-	public List<hospede> getHospedesNoHotel() {
-
-		LocalDateTime agora = LocalDateTime.now();
-		List<hospede> hospedesNoHotel = new ArrayList<hospede>();
-
-		checkInRepository.findAll().forEach((checkIn) -> {
-			if(agora.isBefore(checkIn.getDataSaida()) && agora.isAfter(checkIn.getDataEntrada())) {
-				hospedesNoHotel.add(checkIn.getHospede());
-			}
-
-		});
-
-		return hospedesNoHotel;
-	}
-
 	@GetMapping("/hospedes/QueSairamDoHotel")
 	public List<hospede> getHospedesQueSairamDoHotel() {
 

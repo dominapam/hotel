@@ -21,7 +21,7 @@ public class hospede extends auditModel {
 	private String nome;
 
 	@Column
-	private int telefone;
+	private Long telefone;
 
 	@Column
 	private float gastoTotal;
@@ -44,10 +44,10 @@ public class hospede extends auditModel {
 	public void setDocumento(Long documento) {
 		this.id = documento;
 	}
-	public int getTelefone() {
+	public Long getTelefone() {
 		return telefone;
 	}
-	public void setTelefone(int telefone) {
+	public void setTelefone(Long telefone) {
 		this.telefone = telefone;
 	}
 
