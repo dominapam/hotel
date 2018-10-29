@@ -1,0 +1,303 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Hotel",
+		"_postman_id": "c5348ce0-9125-aa65-eafc-404cc466263d",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "hospede",
+			"description": "",
+			"item": [
+				{
+					"name": "CREATE",
+					"request": {
+						"url": "http://localhost:8080/hospedes/",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"documento\":\"12345678500\",\n\t\"nome\":\"Bruno\",\n\t\"telefone\":\"47988776655\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "READ",
+					"request": {
+						"url": "http://localhost:8080/hospedes/12345678500",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nome\":\"Maria\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"request": {
+						"url": "http://localhost:8080/hospedes/12345678200",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nome\":\"Bruno\",\n\t\"telefone\":\"9922877\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE",
+					"request": {
+						"url": "http://localhost:8080/hospedes/12345678200",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "LIST no hotel",
+					"request": {
+						"url": "http://localhost:8080/hospedes/nohotel",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nome\":\"Maria\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "LIST por nome",
+					"request": {
+						"url": "http://localhost:8080/hospedes/nome/Ivan",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nome\":\"Laura\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "LIST por telefone",
+					"request": {
+						"url": "http://localhost:8080/hospedes/telefone/47988776655",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nome\":\"Laura\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "LIST por documento (id)",
+					"request": {
+						"url": "http://localhost:8080/hospedes/12345678500",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nome\":\"Laura\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "LIST no hotel",
+					"request": {
+						"url": "http://localhost:8080/hospedes/nohotel",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nome\":\"Laura\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "checkin",
+			"description": "",
+			"item": [
+				{
+					"name": "CREATE",
+					"request": {
+						"url": "http://localhost:8080/hospedes/12345678500/checkins",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"dataEntrada\":\"2018-10-27T08:00:00\",\n\t\"dataSaida\":\"2018-10-29T16:00:00\",\n\t\"adicionalVeiculo\":\"true\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "READ",
+					"request": {
+						"url": "http://localhost:8080/checkin/10551",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nome\":\"Maria\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"request": {
+						"url": "http://localhost:8080/hospedes/12345678500/checkins/10551",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"dataEntrada\":\"2010-10-10T10:10:10\",\n\t\"dataSaida\":\"2018-10-10T10:10:10\",\n\t\"adicionalVeiculo\":\"true\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE",
+					"request": {
+						"url": "http://localhost:8080/hospedes/10923071911",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "LIST",
+					"request": {
+						"url": "http://localhost:8080/hospedes/12345678500/checkins",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nome\":\"Maria\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
