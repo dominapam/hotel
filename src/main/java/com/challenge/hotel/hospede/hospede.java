@@ -25,7 +25,22 @@ public class hospede extends auditModel {
 
 	@Column
 	private float gastoTotal;
+	
+	@Column
+	private float valorUltimaHospedagem;
 
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public float getValorUltimaHospedagem() {
+		return valorUltimaHospedagem;
+	}
+	public void setValorUltimaHospedagem(float valorUltimaHospedagem) {
+		this.valorUltimaHospedagem = valorUltimaHospedagem;
+	}
 	public float getGastoTotal() {
 		return gastoTotal;
 	}

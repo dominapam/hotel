@@ -3,11 +3,8 @@ package com.challenge.hotel.checkin;
 import java.time.LocalDateTime;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
 import com.challenge.hotel.auditModel.auditModel;
 import com.challenge.hotel.hospede.hospede;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -30,7 +27,7 @@ public class checkIn extends auditModel {
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "hospede_id", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	//@JsonIgnore
+	@JsonIgnore
 	private hospede hospede;
 
 	//@NotBlank

@@ -77,6 +77,7 @@ public class checkInService {
 				.map(hospede -> {
 					float valorEstadia = calculaValorEstadia(checkIn);
 					hospede.setGastoTotal(hospede.getGastoTotal() + valorEstadia);
+					hospede.setValorUltimaHospedagem(valorEstadia);
 					hospedeRepository.save(hospede);
 					checkIn.setHospede(hospede);
 					checkIn.setValorEstadia(valorEstadia);				
@@ -87,9 +88,15 @@ public class checkInService {
 	public List<checkIn> getCheckInsByHospedeId(Long hospedeId) {
 		return checkInRepository.findByHospedeId(hospedeId);
 	}
-	
+
+	// List all check-ins
 	public List<checkIn> getCheckIns() {
 		return checkInRepository.findAll();
+	}
+
+	// Read a check-in
+	public checkIn getCheckIn(Long checkinId) {
+		return checkInRepository.findById(checkinId).orElseThrow(() -> new ResourceNotFoundException("Check-in não encontrado com id " + checkinId));
 	}
 
 	public checkIn updateCheckIn(Long hospedeId, Long checkInId, checkIn checkInRequest) {
@@ -106,44 +113,19 @@ public class checkInService {
 				}).orElseThrow(() -> new ResourceNotFoundException("Check-in não encontrado com id " + checkInId));
 	}
 
-
 	public ResponseEntity<?> deleteCheckIn(Long hospedeId, Long checkInId) {
 		if(!hospedeRepository.existsById(hospedeId)) {
 			throw new ResourceNotFoundException("Hospede não encontrado com id " + hospedeId);
 		}
-		
 		hospede hospede = hospedeRepository.findById(hospedeId).get();
 		hospede.setGastoTotal(hospede.getGastoTotal() - getCheckIn(checkInId).getValorEstadia());
 		hospedeRepository.save(hospede);
-		
+
 		return checkInRepository.findById(checkInId)
 				.map(checkIn -> {				
 					checkInRepository.delete(checkIn);
 					return ResponseEntity.ok().build();
 				}).orElseThrow(() -> new ResourceNotFoundException("Check-in não encontrado com id " + checkInId));
-
-	}
-
-
-	/*
-	public List<hospede> getHospedesQueSairamDoHotel() {
-
-		LocalDateTime agora = LocalDateTime.now();
-		List<hospede> hospedesNoHotel = new ArrayList<hospede>();
-
-		checkInRepository.findAll().forEach((checkIn) -> {
-			if(agora.isAfter(checkIn.getDataSaida()) && agora.isAfter(checkIn.getDataEntrada())) {
-				hospedesNoHotel.add(checkIn.getHospede());
-			}
-
-		});
-
-		return hospedesNoHotel;
-	}
-	 */
-
-	public checkIn getCheckIn(Long checkinId) {
-		return checkInRepository.findById(checkinId).orElseThrow(() -> new ResourceNotFoundException("Check-in não encontrado com id " + checkinId));
 	}
 
 }

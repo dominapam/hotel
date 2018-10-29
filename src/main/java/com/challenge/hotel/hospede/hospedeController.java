@@ -59,14 +59,32 @@ public class hospedeController {
 	public List<hospede> getHospedesByTelefone(@PathVariable Long hospedeTelefone) {
 		return hospedeService.getHospedesByTelefone(hospedeTelefone);
 	}
-	
+/*	
 	// List guests in the hotel
-/*	@GetMapping("/hospedes/nohotel")
+	@GetMapping("/hospedes/nohotel")
 	public List<hospede> getHospedesNoHotel() {
 		return hospedeService.getHospedesNoHotel();
 	}
 	*/
+	/*
+	@GetMapping("/hospedes/QueSairamDoHotel")
+	public List<hospede> getHospedesQueSairamDoHotel() {
 
+		LocalDateTime agora = LocalDateTime.now();
+		List<hospede> hospedesNoHotel = new ArrayList<hospede>();
+
+		checkInRepository.findAll().forEach((checkIn) -> {
+			if(agora.isAfter(checkIn.getDataSaida()) && agora.isAfter(checkIn.getDataEntrada())) {
+				hospedesNoHotel.add(checkIn.getHospede());
+			}
+
+		});
+
+		return hospedesNoHotel;
+	}
+	*/
+	
+	
 }
 
 
