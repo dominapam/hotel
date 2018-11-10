@@ -49,4 +49,9 @@ public class checkInController {
 		return checkInService.getCheckInsByHospedeId(hospedeId);
 	}
 
+	// List check-ins from a guest
+	@GetMapping("/hospedes/nome/{hospedeNome}/checkins")
+	public List<checkIn> getAllCheckinsByNome(@PathVariable Long hospedeNome) {
+		return checkInService.getCheckInsByHospedeId(hospedeNome);
+	}
 }

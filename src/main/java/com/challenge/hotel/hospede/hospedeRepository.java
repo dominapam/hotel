@@ -12,14 +12,23 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface hospedeRepository extends JpaRepository<hospede, Long> {
 	@Query("select c.hospede from checkIn c where c.id = :checkinId")
-	hospede findHospedeByCheckinId(Long checkinId);
+	hospede findByCheckinId(Long checkinId);
 	
 	@Query("select c.hospede from checkIn c where c.dataEntrada = ?1")
-	hospede findHospedeByDataEntrada(LocalDateTime dataEntrada);
+	List<hospede> findByDataEntrada(LocalDateTime dataEntrada);
 	
-	@Query("select h from hospede h where h.nome like %?1% order by nome")
-	List<hospede> findHospedeByNome(String nome);
+	@Query("select c.hospede from checkIn c where c.dataSaida = ?1")
+	List<hospede> findByDataSaida(LocalDateTime dataSaida);
 	
-	@Query("select h from hospede h where h.telefone = ?1 order by telefone")
-	List<hospede> findHospedeByTelefone(Long telefone);
+	@Query("select c.hospede from checkIn c where c.dataEntrada <= :dataHoje and c.dataSaida >= :dataHoje")
+	List<hospede> findHospedesNoHotel(LocalDateTime dataHoje);
+	
+	@Query("select c.hospede from checkIn c where c.dataEntrada <= :dataHoje and c.dataSaida < :dataHoje")
+	List<hospede> findHospedesSaidos(LocalDateTime dataHoje);
+	
+	@Query 
+	List<hospede> findByNome(String nome);
+	
+	@Query
+	List<hospede> findByTelefone(Long telefone);
 }

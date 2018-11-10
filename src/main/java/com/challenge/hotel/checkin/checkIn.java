@@ -1,13 +1,11 @@
 package com.challenge.hotel.checkin;
 
 import java.time.LocalDateTime;
-
 import javax.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import com.challenge.hotel.auditModel.auditModel;
 import com.challenge.hotel.hospede.hospede;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="checkins", schema="hotel")
@@ -24,17 +22,14 @@ public class checkIn extends auditModel {
     )
 	private Long id;
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne
 	@JoinColumn(name = "hospede_id", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JsonIgnore
 	private hospede hospede;
 
-	//@NotBlank
 	@Column
 	private LocalDateTime dataEntrada;
 
-	//@NotBlank
 	@Column
 	private LocalDateTime dataSaida;
 
@@ -80,5 +75,4 @@ public class checkIn extends auditModel {
 	public void setAdicionalVeiculo(boolean adicionalVeiculo) {
 		this.adicionalVeiculo = adicionalVeiculo;
 	}	
-
 }

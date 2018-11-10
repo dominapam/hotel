@@ -1,5 +1,6 @@
 package com.challenge.hotel.hospede;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +15,8 @@ public class hospedeService {
 	
 	@Autowired
 	private hospedeRepository hospedeRepository;
-	
-//	@Autowired
-//	private checkInRepository checkInRepository;
-	
 
+	
 	public hospede getHospede(Long hospedeId) {
 		return hospedeRepository.findById(hospedeId).orElseThrow(() -> new ResourceNotFoundException("Hospede não encontrado com id " + hospedeId));
 	}
@@ -28,11 +26,11 @@ public class hospedeService {
 	}
 
 	public List<hospede> getHospedesByNome(String nome) {
-		return hospedeRepository.findHospedeByNome(nome);
+		return hospedeRepository.findByNome(nome);
 	}
 	
 	public List<hospede> getHospedesByTelefone(Long telefone) {
-		return hospedeRepository.findHospedeByTelefone(telefone);
+		return hospedeRepository.findByTelefone(telefone);
 	}
 	
 	public hospede createHospede(hospede hospede) {
@@ -57,53 +55,26 @@ public class hospedeService {
 					return ResponseEntity.ok().build();
 				}).orElseThrow(() -> new ResourceNotFoundException("Hospede não encontrado com id " + hospedeId));
 	}
-/*
+	
+	public hospede getHospedeByCheckinId(Long CheckinId) {
+		return hospedeRepository.findByCheckinId(CheckinId);
+	}
+	
+	public List<hospede> getHospedeByDataEntrada(LocalDateTime dataEntrada) {
+		return hospedeRepository.findByDataEntrada(dataEntrada);
+	}
+	
+	public List<hospede> getHospedeByDataSaida(LocalDateTime dataSaida) {
+		return hospedeRepository.findByDataSaida(dataSaida);
+	}
+	
 	public List<hospede> getHospedesNoHotel() {
-		LocalDateTime agora = LocalDateTime.now();
-		List<hospede> hospedesNoHotel = new ArrayList<hospede>();
-		
-//		for (i=chec)
-//		hospedeRepository.findHospedeByDataEntrada(dataEntrada);
-		
-//		for (checkIn checkIn : checkInRepository.findAll()) {
-//			if(agora.isBefore(checkIn.getDataSaida()) && agora.isAfter(checkIn.getDataEntrada())) {
-//				hospedesNoHotel.add(hospedeRepository.findHospedeByCheckinId(checkIn.getId()));
-//			}
-//		}
-		
-//		for (checkIn checkIn : checkInRepository.findAll()) {
-//			if(agora.isBefore(checkIn.getDataSaida()) && agora.isAfter(checkIn.getDataEntrada())) {
-//				hospedesNoHotel.add(checkIn.getHospede());		
-//			}
-//		}
-	
-//		checkInRepository.findAll().forEach((checkIn) -> {
-//			if(agora.isBefore(checkIn.getDataSaida()) && agora.isAfter(checkIn.getDataEntrada())) {
-//				hospedesNoHotel.add(checkIn.getHospede());
-//			}
-//		});
-		if(hospedesNoHotel.isEmpty()) {
-			throw new ResourceNotFoundException("Não há hospedes no hotel no momento");
-		}
-		
-		return hospedesNoHotel;
+		LocalDateTime dataHoje = LocalDateTime.now();
+		return hospedeRepository.findHospedesNoHotel(dataHoje);
 	}
-*/
 	
-	/*
-	public List<hospede> getHospedesQueSairamDoHotel() {
-
-		LocalDateTime agora = LocalDateTime.now();
-		List<hospede> hospedesNoHotel = new ArrayList<hospede>();
-
-		checkInRepository.findAll().forEach((checkIn) -> {
-			if(agora.isAfter(checkIn.getDataSaida()) && agora.isAfter(checkIn.getDataEntrada())) {
-				hospedesNoHotel.add(checkIn.getHospede());
-			}
-
-		});
-
-		return hospedesNoHotel;
+	public List<hospede> getHospedesSaidos() {
+		LocalDateTime dataHoje = LocalDateTime.now();
+		return hospedeRepository.findHospedesSaidos(dataHoje);
 	}
-	 */
 }

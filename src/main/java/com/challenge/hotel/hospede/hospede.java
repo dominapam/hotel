@@ -5,15 +5,17 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import com.challenge.hotel.auditModel.auditModel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="hospedes", schema="hotel")
 public class hospede extends auditModel {
 
 	private static final long serialVersionUID = 1L;
-
+	
+	@JsonIgnore
 	@Id
-	private Long id; //documento
+	private Long id; //Documento
 
 	@NotBlank
 	@Size(min = 2, max = 100)
@@ -65,5 +67,4 @@ public class hospede extends auditModel {
 	public void setTelefone(Long telefone) {
 		this.telefone = telefone;
 	}
-
 }

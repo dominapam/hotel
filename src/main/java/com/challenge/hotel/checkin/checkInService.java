@@ -4,6 +4,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -127,5 +128,11 @@ public class checkInService {
 					return ResponseEntity.ok().build();
 				}).orElseThrow(() -> new ResourceNotFoundException("Check-in não encontrado com id " + checkInId));
 	}
-
+	
+	// Find all check-ins from the guest by the guests name
+	public List<checkIn> getAllCheckinsByNome(String hospedeNome) {
+		List<checkIn> checkins = new ArrayList<>();
+		checkInRepository.findByHospedeNome(hospedeNome).forEach(checkins::add);
+		return checkins;
+	}
 }
