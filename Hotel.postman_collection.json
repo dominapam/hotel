@@ -34,7 +34,7 @@
 				{
 					"name": "READ",
 					"request": {
-						"url": "http://localhost:8080/hospedes/12345678500",
+						"url": "http://localhost:8080/hospedes/12345678400",
 						"method": "GET",
 						"header": [
 							{
@@ -172,9 +172,69 @@
 					"response": []
 				},
 				{
+					"name": "LIST por checkin Id",
+					"request": {
+						"url": "http://localhost:8080/hospede/checkinId/10552",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nome\":\"Laura\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "LIST por data de checkin",
+					"request": {
+						"url": "http://localhost:8080/hospedes/checkinDataEntrada/2018-11-08T08:00:00",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nome\":\"Laura\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
 					"name": "LIST no hotel",
 					"request": {
-						"url": "http://localhost:8080/hospedes/nohotel",
+						"url": "http://localhost:8080/hospedes/noHotel",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nome\":\"Laura\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "LIST saidos do hotel",
+					"request": {
+						"url": "http://localhost:8080/hospedes/noHotel",
 						"method": "GET",
 						"header": [
 							{
@@ -279,6 +339,26 @@
 				},
 				{
 					"name": "LIST",
+					"request": {
+						"url": "http://localhost:8080/hospedes/12345678500/checkins",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nome\":\"Maria\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "LIST copy",
 					"request": {
 						"url": "http://localhost:8080/hospedes/12345678500/checkins",
 						"method": "GET",
